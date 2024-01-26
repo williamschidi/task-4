@@ -42,9 +42,29 @@ class DescriptiveState {
     console.log(copyArr[getMidValue]);
   }
 
-  mode() {}
+  mode() {
+    const myMap = new Map();
+
+    this.arr.forEach((ar) => {
+      myMap.set(ar, (myMap.get(ar) || 0) + 1);
+    });
+    let frqNum = 0;
+    let modes = [];
+    myMap.forEach((frq, num) => {
+      if (frq > frqNum) {
+        frqNum = frq;
+        modes = [num];
+      } else if (frq === frqNum) {
+        modes.push(num);
+      }
+    });
+    console.log(`The mode is ${modes}`);
+  }
 }
 
-const description = new DescriptiveState([2, 4, 6, 8, 5]);
+const description = new DescriptiveState([
+  2, 4, 3, 3, 3, 3, 3, 3, 3, 3, 6, 8, 5, 2, 2, 4,
+]);
 description.mean();
 description.media();
+description.mode();
