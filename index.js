@@ -1,5 +1,5 @@
 'use strict';
-
+// Answer to Question 1
 class Car {
   static make = 'Toyota Hilux';
   constructor(speed) {
@@ -23,10 +23,11 @@ const myCar = new Car(150);
 myCar.accelerate();
 myCar.deceleration();
 
-// How to use a static property and static method
+//  How to use a static property and static method
 console.log(Car.make);
 Car.description();
 
+// Answer to Question 2.
 class DescriptiveState {
   constructor(arr) {
     this.arr = arr;
@@ -69,9 +70,27 @@ class DescriptiveState {
     });
     console.log(`The mode is ${modes}`);
   }
+
+  range() {
+    const copyArr = this.arr.slice().sort((a, b) => a - b);
+    const highestValue = copyArr.reduce(
+      (ar, acc) => (ar > acc ? ar : acc),
+      copyArr[0]
+    );
+
+    const leastValue = copyArr.reduce(
+      (ar, acc) => (ar < acc ? ar : acc),
+      copyArr[0]
+    );
+
+    console.log(highestValue - leastValue);
+  }
+
+  variance() {}
 }
 
 const description = new DescriptiveState([2, 2, 3, 4, 5, 6, 6, 6]);
 description.mean();
 description.median();
 description.mode();
+description.range();
