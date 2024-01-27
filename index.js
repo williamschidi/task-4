@@ -33,13 +33,22 @@ class DescriptiveState {
   }
   mean() {
     const getMean = this.arr.reduce((ar, acc) => ar + acc, 0) / this.arr.length;
-    console.log(`The mean value is (${getMean})`);
+    console.log(`The mean value is (${getMean.toFixed(2)})`);
   }
 
-  media() {
+  median() {
     const copyArr = this.arr.slice().sort((a, b) => a - b);
-    const getMidValue = (copyArr.length + 1) / 2;
-    console.log(copyArr[getMidValue]);
+    if (copyArr.length % 2 == 1) {
+      const getMidValue = (copyArr.length - 1) / 2;
+      console.log(`The median value is ${copyArr[getMidValue]}`);
+    } else {
+      const getMidValue = copyArr.length / 2;
+      console.log(
+        `The median value is ${
+          (copyArr[getMidValue] + copyArr[getMidValue - 1]) / 2
+        }`
+      );
+    }
   }
 
   mode() {
@@ -62,9 +71,7 @@ class DescriptiveState {
   }
 }
 
-const description = new DescriptiveState([
-  2, 4, 3, 3, 3, 3, 3, 3, 3, 3, 6, 8, 5, 2, 2, 4,
-]);
+const description = new DescriptiveState([2, 2, 3, 4, 5, 6, 6, 6]);
 description.mean();
-description.media();
+description.median();
 description.mode();
