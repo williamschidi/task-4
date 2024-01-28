@@ -34,21 +34,20 @@ class DescriptiveState {
   }
   mean() {
     const getMean = this.arr.reduce((ar, acc) => ar + acc, 0) / this.arr.length;
-    console.log(`The mean value is (${getMean.toFixed(2)})`);
+    return getMean.toFixed(2);
   }
 
   median() {
     const copyArr = this.arr.slice().sort((a, b) => a - b);
     if (copyArr.length % 2 == 1) {
       const getMidValue = (copyArr.length - 1) / 2;
-      console.log(`The median value is ${copyArr[getMidValue]}`);
+      return `The median value is ${copyArr[getMidValue]}`;
     } else {
       const getMidValue = copyArr.length / 2;
-      console.log(
-        `The median value is ${
-          (copyArr[getMidValue] + copyArr[getMidValue - 1]) / 2
-        }`
-      );
+
+      return `The median value is ${
+        (copyArr[getMidValue] + copyArr[getMidValue - 1]) / 2
+      }`;
     }
   }
 
@@ -68,7 +67,7 @@ class DescriptiveState {
         modes.push(num);
       }
     });
-    console.log(`The mode is ${modes}`);
+    return modes;
   }
 
   range() {
@@ -83,14 +82,46 @@ class DescriptiveState {
       copyArr[0]
     );
 
-    console.log(highestValue - leastValue);
+    return highestValue - leastValue;
   }
 
-  variance() {}
+  variance() {
+    const mean = this.mean();
+    const squaredDifferences = this.arr.map((value) =>
+      Math.pow(value - +mean, 2)
+    );
+    const sumSquaredDifferences = squaredDifferences.reduce(
+      (acc, value) => acc + value,
+      0
+    );
+
+    const getVariance = sumSquaredDifferences / this.arr.length;
+    return getVariance.toFixed(2);
+  }
+
+  standardDeviation() {
+    const squareRoot = Math.sqrt(this.variance());
+    return squareRoot.toFixed(2);
+  }
+
+  meanAbsoluteDeviation() {
+    const mean = this.mean();
+    const absoluteDeviations = this.arr.map((value) => Math.abs(value - +mean));
+    const mad =
+      absoluteDeviations.reduce((acc, value) => acc + value, 0) /
+      this.arr.length;
+    return mad;
+  }
 }
 
 const description = new DescriptiveState([2, 2, 3, 4, 5, 6, 6, 6]);
-description.mean();
-description.median();
-description.mode();
-description.range();
+
+console.log(`The mean value is ${description.mean()}`);
+console.log(`The median is ${description.median()}`);
+console.log(`The mode is ${description.mode()}`);
+console.log(`The range is ${description.range()}`);
+console.log(`The variance is ${description.variance()}`);
+console.log(`The standard deviation is ${description.standardDeviation()}`);
+console.log(
+  `The mean absolute deviation is ${description.meanAbsoluteDeviation()}`
+);
