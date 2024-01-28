@@ -125,3 +125,5 @@ console.log(`The standard deviation is ${description.standardDeviation()}`);
 console.log(
   `The mean absolute deviation is ${description.meanAbsoluteDeviation()}`
 );
+
+// Question 3
